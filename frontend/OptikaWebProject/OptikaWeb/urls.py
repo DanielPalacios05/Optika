@@ -20,4 +20,10 @@ from webApp import views as OptikaWeb
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', OptikaWeb.home),
+    path('what/', OptikaWeb.what),
+    path('why/', OptikaWeb.why),
+    path('func/', OptikaWeb.func),
+    path('login/', OptikaWeb.login),
+    path('peopleToRecog/', OptikaWeb.peopleToRecog),
+    path('peopleToRecog/addPerson/', OptikaWeb.addPerson),
 ]
