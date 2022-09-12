@@ -2,12 +2,11 @@
 <!-- MINUTO 40-->
 <html>
 <head>
-    <!-- <meta name="viewport" content="with=device-width,initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"> 
     <!--^^hacer que la pagina sea responsive--> 
-    <title>Optika a </title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+
     {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css'%}"> 
+    <link rel="stylesheet" href="{% static 'styleMain.css'%}"> 
     <!--^^conectar el css con el HTMl-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,15 +22,10 @@
         <nav>
             <!-- <a href="create.html"><img src="images./logo1.png"> </a> -->
             <div class="nav-links" id="navLinks">
-                <!-- <i class="fa fa-times-circle" onclick="hideMenu()"></i> -->
+                <i class="fa fa-times-circle" onclick="hideMenu()"></i>
                 <!-- ^^Le aniadimos un boton para que se peuda cerrar en los disposititvos mobiles -->
                 <ul>
-                    <li> <a href="">HOME</a> </li>
-                    <li> <a href="">ABOUT</a> </li>
-                    <li> <a href="">IA</a> </li>
-                    <li> <a href="">INGRESA</a> </li>
-                    <!-- <li> <a href="">REGISTRATE</a> </li> -->
-                   
+                    <li> <button><a href="/home">Log out </a></button> </li>
                 </ul>
             </div>
             <i class="fa fa-bars" onclick="showMenu()"></i>
@@ -40,46 +34,48 @@
 
     <div class="text-box">
         
-        <h1>El sistema de seguridad que revolucionará la industria</h1>
+        <h1>Bienvenido, usuario!</h1>
         <p>
-            Optika es un disruptivo sistema <br> de seguridad con inteligencia artifical
+            No hay nada que preocuparse <br> mientras cuentes con tu Optika ;)
             <!--- br es un line brake -->
             
         </p>
         <!-- <a href="">Registrate</a>-->
-        <a href="/mainPage" class="hero-btn"> Registrate</a>
+        <a href="/liveCam" class="hero-btn"> Camara en vivo</a>
+        <a href="/detections" class="hero-btn"> Historial de detecciones</a>
+        <a href="/peopleToRecog" class="hero-btn"> Gestion de personas conocidas</a>
         <!-- PARA HACER QUE ESO SE VEA COMO UN BOTON, lo creamos en una clase y con CSS lo hacemos el boton -->
     </div>
 
     </section>
 
     <!--texto inferior pagina principal-->
-    <section class="curso">
+    <!-- <section class="curso">
         <h1>Cosas que ofrecemos:</h1>
         <p> ofrecemos seguridad en el hogar </p>
 
         <div class="row">
             <div class="course-col">
-                <h3>¿Qué es Optika?</h3>
+                <h3>Qué es Optika?</h3>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim officiis voluptate necessitatibus doloribus porro et voluptatum earum expedita incidunt temporibus sed accusantium exercitationem similique rerum quisquam placeat harum, consequuntur ex?
                 </p>
             </div>
             <div class="course-col">
-                <h3>¿Por qué elegir Optika?</h3>
+                <h3>Por qué elegir Optika?</h3>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus deleniti, at tempore fugit voluptates accusamus, itaque deserunt dolores quas ea rerum blanditiis libero quod excepturi, sapiente beatae nostrum iure numquam.
                 </p>
             </div>
             <div class="course-col">
-                <h3>¿Qué funciones me ofrece Optika?</h3>
+                <h3>Que funciones me ofrece Optika?</h3>
                 <p>
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eveniet reiciendis id iure iusto, debitis numquam nulla nam eum atque alias minus quisquam facilis odit quos possimus, explicabo nihil omnis fuga?
                 </p>
             </div>
         </div>
 
-    </section>
+    </section> -->
 
 
 
@@ -94,7 +90,6 @@
         function hideMenu(){
             navLinks.Style.right = "-200px";
         }
-
     </script>
 
 </body>

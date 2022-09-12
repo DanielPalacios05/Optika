@@ -1,7 +1,7 @@
-"""OptikaWeb URL Configuration
+"""optika URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
+    https://docs.djangoproject.com/en/4.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -15,15 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webApp import views as OptikaWeb
+from webApp import views as optViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', OptikaWeb.home),
-    path('what/', OptikaWeb.what),
-    path('why/', OptikaWeb.why),
-    path('func/', OptikaWeb.func),
-    path('login/', OptikaWeb.login),
-    path('peopleToRecog/', OptikaWeb.peopleToRecog),
-    path('peopleToRecog/addPerson/', OptikaWeb.addPerson),
+    path('home/', optViews.home),
+    #path("<str:name>", optViews.home, name="index"),
+    path('peopleToRecog/', optViews.peopleToRecog), #Gente a reconocer 
+    path('peopleToRecog/addPerson/', optViews.addPerson), #Gente a reconocer 
+    path('mainPage/', optViews.mainPage),
+    path('liveCam/', optViews.liveCam),
+    path('detections/', optViews.detections),
+          
 ]
