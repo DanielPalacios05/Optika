@@ -1,5 +1,4 @@
-from cgi import test
-from email.mime import image
+
 import os
 from scipy.spatial.distance import cosine
 from keras_vggface.vggface import VGGFace
@@ -7,38 +6,97 @@ from keras_vggface.utils import preprocess_input
 import cv2
 import PIL
 import torchvision.transforms as transform
-from facenet_pytorch import MTCNN
+from facenet_pytorch import MTCNN, extract_face
 import torch
 import numpy as np
-class Device:
+
+
+class OptikaDevice:
 
     def __init__(self) -> None:
         
-        self.classifiers = { } #{name: embedding}
+        self.knownPeople = { } #{name: embedding}
 
         self.deviceIsOn = True
 
-        self.torchdevice = device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.cascade = MTCNN(image_size = 224,margin=40,device=device,post_process=False)
+        self.torchdevice= torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        self.cascade = MTCNN(image_size = 224,margin=40,device=self.torchdevice,post_process=False)
 
 
         self.model = VGGFace(model='resnet50', include_top=False, input_shape=(224, 224, 3), pooling='avg')
 
-    def getEmbedding(self,imagePath,extractFace = False):
+    def turnCameraON(self):
+
+        video_capture = cv2.VideoCapture(0)
+
+        while True:
+
+            ret, frame = video_capture.read()
+
+            boxes,probs = self.cascade.detect(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+
+            
+
+    
 
 
-        img = cv2.imread(imagePath)
-        img = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+            if boxes is not None:
 
-        frame = PIL.Image.fromarray(img)
+                filterProbs = probs > 0.90
+
+                boxes = boxes[filterProbs]
+
+
+                
+            
+
+                for (x, y, w, h) in boxes:
+
+                    face = extract_face(frame,(x,y,w,h),image_size=240).permute(1, 2, 0).int().numpy()
+
+
+                    name = self.classifyFace(face)
+
+                    if name == "Desconocido":
+
+                        color = (0,0,255)
+                    else:
+                        color = (255,0,0)
+                    
+
+                    cv2.putText(frame,name,(round(x),round(y-10)),cv2.FONT_HERSHEY_COMPLEX_SMALL,color=color,thickness=1,fontScale=1)
+                    cv2.rectangle(frame,(round(x),round(y)), (round(w),round(h)),
+                                color,
+                                3)
+
+            cv2.imshow('Video',frame)
+
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+
+                break
+                    
+        
+
+
+    def getEmbedding(self,face=None,imagePath=None,extractFace = False):
+
+
+        if imagePath is not None:
+
+            img = cv2.imread(imagePath)
+            img = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+
+            frame = PIL.Image.fromarray(img)
+        elif face is not None:
+            frame = face
+        else:
+            raise Exception()
         """
         extractFace = True if the face has not been extracted
         """
 
         if extractFace:
             face = (self.cascade.forward(frame)).permute(1,2,0).int().numpy()
-        else:
-            face = frame.resize((224,224))
 
 
         face = np.asarray(face)
@@ -53,7 +111,7 @@ class Device:
 
 
     
-    def trainCosine(self,trainingDirectory):
+    def loadPeople(self,trainingDirectory):
 
         """
 
@@ -86,7 +144,7 @@ class Device:
             
                 pathPersonImage = personPath + "/" + os.listdir(personPath)[0]
 
-                self.classifiers[personName] = self.getEmbedding(pathPersonImage,extractFace=True)
+                self.knownPeople[personName] = self.getEmbedding(imagePath=pathPersonImage,extractFace=True)
 
 
     def is_match(self,ID_embedding, subject_embedding,thresh=0.4):
@@ -99,21 +157,25 @@ class Device:
             return False
 
 
-    def classifyFace(self,framePath):
+    def classifyFace(self,frame):
 
         matchFound = False
 
-        subjectEmbedding = self.getEmbedding(framePath,extractFace=True)
+        subjectEmbedding = self.getEmbedding(face=frame,extractFace=False)
 
-        for name, knownEmbedding in self.classifiers.items():
+        for name, knownEmbedding in self.knownPeople.items():
 
             if self.is_match(knownEmbedding.flatten(),subjectEmbedding.flatten()):
 
-                print(f"La persona en la foto {framePath} es {name}")
+                print(f"{name} esta en la camara")
                 matchFound=True
 
+                return name
+
         if not matchFound:
-            print(f"En la foto {framePath} hay un desconocido")
+            print(f"Se ha detectado a un desconocido")
+            
+            return "Desconocido"
 
 
 
@@ -128,6 +190,8 @@ class Device:
                 imagePath = testingDir + "/" + image
                 self.classifyFace(imagePath)
 
+    
+
 
 
 
@@ -140,15 +204,6 @@ class Device:
             
 
 
-
-
-
-
-a = Device()
-
-a.trainCosine("train_dir")
-
-a.checkFaces("test_dir")
 
 
 
