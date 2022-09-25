@@ -19,7 +19,7 @@ from webApp import views as optViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', optViews.home),
+    path('', optViews.home), #recordar que esto hay que cambiarlo a ''
     #path("<str:name>", optViews.home, name="index"),
     path('peopleToRecog/', optViews.peopleToRecog), #Gente a reconocer 
     path('peopleToRecog/addPerson/', optViews.addPerson), #Gente a reconocer 
