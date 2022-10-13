@@ -5,11 +5,9 @@ from keras_vggface.vggface import VGGFace
 from keras_vggface.utils import preprocess_input
 import cv2
 import PIL
-import torchvision.transforms as transform
 from facenet_pytorch import MTCNN, extract_face
 import torch
 import numpy as np
-
 
 class OptikaDevice:
 
@@ -35,10 +33,6 @@ class OptikaDevice:
 
             boxes,probs = self.cascade.detect(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
 
-            
-
-    
-
 
             if boxes is not None:
 
@@ -46,13 +40,11 @@ class OptikaDevice:
 
                 boxes = boxes[filterProbs]
 
-
-                
             
 
                 for (x, y, w, h) in boxes:
 
-                    face = extract_face(frame,(x,y,w,h),image_size=240).permute(1, 2, 0).int().numpy()
+                    face = extract_face(frame,(x,y,w,h),image_size=224).permute(1, 2, 0).int().numpy()
 
 
                     name = self.classifyFace(face)
