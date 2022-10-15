@@ -58,6 +58,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
+          working-directory: '.frontend/OptikaWebProject/'
           app-name: 'optika'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1E59EAE191FB47958A06C5A5587E5031 }}

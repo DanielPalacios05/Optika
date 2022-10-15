@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ug8^#ej8d^i)s!=+xfrb!w2(7m^$3*qij$-wvf*-r+zwg)ydbf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://optika.azurewebsites.net"]
 
 
 # Application definition
