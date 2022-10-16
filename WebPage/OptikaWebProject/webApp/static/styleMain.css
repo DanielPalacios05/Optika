@@ -6,8 +6,7 @@
 .header{
     min-height: 100vh;
     width: 100%;
-    background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)), url(images./bannerOptika.png)
-    ;
+    background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)), url(images/bannerOptik.png);
     background-position: center;
     background-size: cover;
     position: relative;
@@ -19,7 +18,6 @@ nav{
     justify-content: space-between;
     align-items: center;
 }
-
 nav img{
     width: 150px;
 
@@ -39,7 +37,7 @@ nav img{
     text-decoration: none;
     font-size: 13px;
 }
-.nav-links ul li::after{ /*esto es lo que le aniade una linia roja al texto*/
+.nav-links ul li::after{ /*esto es lo que le añade una linea roja al texto*/
     content: '';
     width: 0%; /*empieza desde cero %*/
     height: 2px;
@@ -59,7 +57,7 @@ nav img{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); /*centrar*/
-    text-align: center;   
+    text-align: center;
 }
 
 .text-box h1{
@@ -76,12 +74,13 @@ nav img{
     display: inline-block;
     text-decoration: none;
     color: #fff;
-    border: 10px solid #ffff;
+    border: 1px solid #ffff;
     padding: 12px 34px;
     font-size: 13px;
     background: transparent;
     position: relative;
     cursor: pointer;
+    margin: 30px;
 }
 
 .hero-btn:hover{
@@ -90,6 +89,43 @@ nav img{
     transition: 1s;
 }
 
+
 nav .fa{ /*Para que los iconos solo se vean para las pantallas pequenias*/ 
     display: none;
 }
+
+/*Hacer que se vea bien la clase text box en dispositivos pequenios*/ 
+@media(max-width: 700px){
+    .text-box h1{
+        font-size: 24px; 
+    }
+    .nav-links ul li{
+        display: block;
+    }
+    .nav-links{
+        position: absolute;
+        background: #f44336;
+        height: 100vh;
+        width: 200px;
+        top: 0;
+        right: -200px;
+        text-align: left;
+        z-index: 2; 
+        transition: 1s;
+    }
+
+    nav .fa{
+        display: block;
+        color: #fff;
+        margin: 10px;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    .nav-links ul{
+        padding: 30px;
+    }
+
+}
+
+/* INFO DE LA PARTE INFERIOR */ 
