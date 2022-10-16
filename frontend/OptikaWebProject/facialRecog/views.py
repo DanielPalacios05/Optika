@@ -17,6 +17,7 @@ connect_str = os.environ.get("APP_CON")
 
 IOTHUB_CONNECTION_STRING = os.environ.get("DEVICE_CONN")
 DEVICE_ID = "device-1"
+iothub_registry_manager = IoTHubRegistryManager(IOTHUB_CONNECTION_STRING)
 
 count = 0
 
@@ -38,14 +39,14 @@ def generateDetectionLog(request):
 
     frame = blob.download_blob().readall()
 
+    print(frame)
+
     print(request.body)
 
     data = json.loads(request.body)
 
     print(data)
 
-
-    iothub_registry_manager = IoTHubRegistryManager(IOTHUB_CONNECTION_STRING)
 
 
     twin = iothub_registry_manager.get_twin(DEVICE_ID)
