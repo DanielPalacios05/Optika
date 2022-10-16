@@ -3,17 +3,19 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from azure.storage.blob import BlobClient
-from facialrecognition import FacialRecog
+from .facialrecognition import FacialRecog
 from azure.iot.hub import IoTHubRegistryManager
 from azure.iot.hub.models import Twin, TwinProperties
+import os
 
 
 # Create your views here.
 facialRecognizer = FacialRecog()
 
 
-connect_str = "DefaultEndpointsProtocol=https;AccountName=optikaimages;AccountKey=nrYz2nK08cwrcAD3m+7OCxk0ZGLALyVJHECVkdGJlpIpvkaQxIw3E/4iO3CxO01plBfdHcv1Mofq+AStcq9kMg==;EndpointSuffix=core.windows.net"
-IOTHUB_CONNECTION_STRING = "HostName=Optika.azure-devices.net;DeviceId=device-1;SharedAccessKey=5MN5TVmcpk6HW/dPOyYWryhuiEKNWnFSnTvLTbUVAuw="
+connect_str = os.environ.get("APP_CON")
+
+IOTHUB_CONNECTION_STRING = os.environ.get("DEVICE_CONN")
 DEVICE_ID = "device-1"
 
 count = 0
