@@ -3,5 +3,5 @@ from . import views
 
 
 urlpatterns = [
-    path('api/blobHandle',views.generateDetectionLog)
+    path('blobHandle',views.generateDetectionLog)
 ]

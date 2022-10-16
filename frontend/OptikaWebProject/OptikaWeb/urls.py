@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from webApp import views as optViews
+from django.urls import include
+from facialRecog import urls as facialRecogUrls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +28,7 @@ urlpatterns = [
     path('mainPage/', optViews.mainPage),
     path('liveCam/', optViews.liveCam),
     path('detections/', optViews.detections),
+    path('api/',include(facialRecogUrls)),
+    
           
 ]
