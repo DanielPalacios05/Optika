@@ -1,0 +1,2 @@
+export APP_CON="DefaultEndpointsProtocol=https;AccountName=optikaimages;AccountKey=nrYz2nK08cwrcAD3m+7OCxk0ZGLALyVJHECVkdGJlpIpvkaQxIw3E/4iO3CxO01plBfdHcv1Mofq+AStcq9kMg==;EndpointSuffix=core.windows.net"
+export DEVICE_CONN="HostName=Optika.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=xTjzv3NGMOmWJpNdeumidky+Jk2bCNaU+poEGHnA0rs="
